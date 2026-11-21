@@ -34,7 +34,6 @@ export const Route = createFileRoute("/api/coach")({
       POST: async ({ request }) => {
         try {
           const body = await readBody(request, bodySchema);
-
           const messages = body.messages.slice(-40) as unknown as UIMessage[];
 
           const gateway = createGateway();
