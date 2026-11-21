@@ -6,16 +6,23 @@ import {
   AiError,
   createGateway,
   errorResponse,
-  getLovableAiGatewayRunId,
   readBody,
   toAiError,
-  withLovableAiGatewayRunIdHeader,
 } from "@/lib/ai/gateway.server";
+
 import { COACH_INSTRUCTIONS } from "@/lib/ai/prompts.server";
 
 const bodySchema = z.object({
   messages: z
-    .array(z.object({ id: z.string(), role: z.enum(["user", "assistant", "system"]), parts: z.array(z.any()) }).passthrough())
+    .array(
+      z
+        .object({
+          id: z.string(),
+          role: z.enum(["user", "assistant", "system"]),
+          parts: z.array(z.any()),
+        })
+        .passthrough(),
+    )
     .min(1)
     .max(200),
 });
@@ -27,22 +34,31 @@ export const Route = createFileRoute("/api/coach")({
       POST: async ({ request }) => {
         try {
           const body = await readBody(request, bodySchema);
+
           const messages = body.messages.slice(-40) as unknown as UIMessage[];
-          const gateway = createGateway(getLovableAiGatewayRunId(request));
+
+          const gateway = createGateway();
+
           const result = streamText({
             model: gateway.model,
             instructions: COACH_INSTRUCTIONS,
             messages: await convertToModelMessages(messages),
             abortSignal: request.signal,
           });
-          const response = result.toUIMessageStreamResponse({
+
+          return result.toUIMessageStreamResponse({
             originalMessages: messages,
             onError: (error) => toAiError(error).message,
           });
-          return await withLovableAiGatewayRunIdHeader(response, gateway);
         } catch (error) {
-          if (error instanceof Error && error.name === "AbortError") return new Response(null, { status: 499 });
-          if (error instanceof AiError) return errorResponse(error);
+          if (error instanceof Error && error.name === "AbortError") {
+            return new Response(null, { status: 499 });
+          }
+
+          if (error instanceof AiError) {
+            return errorResponse(error);
+          }
+
           return errorResponse(error);
         }
       },
