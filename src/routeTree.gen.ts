@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CoachRouteImport } from './routes/coach'
+import { Route as InterviewRouteImport } from './routes/interview'
+import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as SetupRouteImport } from './routes/setup'
+import { Route as ApiCoachRouteImport } from './routes/api/coach'
+import { Route as ApiEvaluateRouteImport } from './routes/api/evaluate'
+import { Route as ApiInterviewRouteImport } from './routes/api/interview'
+import { Route as ApiReportRouteImport } from './routes/api/report'
+import { Route as ApiResumeRouteImport } from './routes/api/resume'
+import { Route as ReportIndexRouteImport } from './routes/report.index'
+import { Route as ReportReportIdRouteImport } from './routes/report.$reportId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoachRoute = CoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterviewRoute = InterviewRouteImport.update({
+  id: '/interview',
+  path: '/interview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCoachRoute = ApiCoachRouteImport.update({
+  id: '/api/coach',
+  path: '/api/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiEvaluateRoute = ApiEvaluateRouteImport.update({
+  id: '/api/evaluate',
+  path: '/api/evaluate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInterviewRoute = ApiInterviewRouteImport.update({
+  id: '/api/interview',
+  path: '/api/interview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiReportRoute = ApiReportRouteImport.update({
+  id: '/api/report',
+  path: '/api/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiResumeRoute = ApiResumeRouteImport.update({
+  id: '/api/resume',
+  path: '/api/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportIndexRoute = ReportIndexRouteImport.update({
+  id: '/report/',
+  path: '/report/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportReportIdRoute = ReportReportIdRouteImport.update({
+  id: '/report/$reportId',
+  path: '/report/$reportId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/coach': typeof CoachRoute
+  '/interview': typeof InterviewRoute
+  '/resume': typeof ResumeRoute
+  '/setup': typeof SetupRoute
+  '/api/coach': typeof ApiCoachRoute
+  '/api/evaluate': typeof ApiEvaluateRoute
+  '/api/interview': typeof ApiInterviewRoute
+  '/api/report': typeof ApiReportRoute
+  '/api/resume': typeof ApiResumeRoute
+  '/report/$reportId': typeof ReportReportIdRoute
+  '/report/': typeof ReportIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/coach': typeof CoachRoute
+  '/interview': typeof InterviewRoute
+  '/resume': typeof ResumeRoute
+  '/setup': typeof SetupRoute
+  '/api/coach': typeof ApiCoachRoute
+  '/api/evaluate': typeof ApiEvaluateRoute
+  '/api/interview': typeof ApiInterviewRoute
+  '/api/report': typeof ApiReportRoute
+  '/api/resume': typeof ApiResumeRoute
+  '/report/$reportId': typeof ReportReportIdRoute
+  '/report': typeof ReportIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/coach': typeof CoachRoute
+  '/interview': typeof InterviewRoute
+  '/resume': typeof ResumeRoute
+  '/setup': typeof SetupRoute
+  '/api/coach': typeof ApiCoachRoute
+  '/api/evaluate': typeof ApiEvaluateRoute
+  '/api/interview': typeof ApiInterviewRoute
+  '/api/report': typeof ApiReportRoute
+  '/api/resume': typeof ApiResumeRoute
+  '/report/$reportId': typeof ReportReportIdRoute
+  '/report/': typeof ReportIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/coach'
+    | '/interview'
+    | '/resume'
+    | '/setup'
+    | '/api/coach'
+    | '/api/evaluate'
+    | '/api/interview'
+    | '/api/report'
+    | '/api/resume'
+    | '/report/$reportId'
+    | '/report/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/coach'
+    | '/interview'
+    | '/resume'
+    | '/setup'
+    | '/api/coach'
+    | '/api/evaluate'
+    | '/api/interview'
+    | '/api/report'
+    | '/api/resume'
+    | '/report/$reportId'
+    | '/report'
+  id:
+    | '__root__'
+    | '/'
+    | '/coach'
+    | '/interview'
+    | '/resume'
+    | '/setup'
+    | '/api/coach'
+    | '/api/evaluate'
+    | '/api/interview'
+    | '/api/report'
+    | '/api/resume'
+    | '/report/$reportId'
+    | '/report/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CoachRoute: typeof CoachRoute
+  InterviewRoute: typeof InterviewRoute
+  ResumeRoute: typeof ResumeRoute
+  SetupRoute: typeof SetupRoute
+  ApiCoachRoute: typeof ApiCoachRoute
+  ApiEvaluateRoute: typeof ApiEvaluateRoute
+  ApiInterviewRoute: typeof ApiInterviewRoute
+  ApiReportRoute: typeof ApiReportRoute
+  ApiResumeRoute: typeof ApiResumeRoute
+  ReportReportIdRoute: typeof ReportReportIdRoute
+  ReportIndexRoute: typeof ReportIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +195,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coach': {
+      id: '/coach'
+      path: '/coach'
+      fullPath: '/coach'
+      preLoaderRoute: typeof CoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interview': {
+      id: '/interview'
+      path: '/interview'
+      fullPath: '/interview'
+      preLoaderRoute: typeof InterviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/coach': {
+      id: '/api/coach'
+      path: '/api/coach'
+      fullPath: '/api/coach'
+      preLoaderRoute: typeof ApiCoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/evaluate': {
+      id: '/api/evaluate'
+      path: '/api/evaluate'
+      fullPath: '/api/evaluate'
+      preLoaderRoute: typeof ApiEvaluateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/interview': {
+      id: '/api/interview'
+      path: '/api/interview'
+      fullPath: '/api/interview'
+      preLoaderRoute: typeof ApiInterviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/report': {
+      id: '/api/report'
+      path: '/api/report'
+      fullPath: '/api/report'
+      preLoaderRoute: typeof ApiReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/resume': {
+      id: '/api/resume'
+      path: '/api/resume'
+      fullPath: '/api/resume'
+      preLoaderRoute: typeof ApiResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report/': {
+      id: '/report/'
+      path: '/report'
+      fullPath: '/report/'
+      preLoaderRoute: typeof ReportIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report/$reportId': {
+      id: '/report/$reportId'
+      path: '/report/$reportId'
+      fullPath: '/report/$reportId'
+      preLoaderRoute: typeof ReportReportIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CoachRoute: CoachRoute,
+  InterviewRoute: InterviewRoute,
+  ResumeRoute: ResumeRoute,
+  SetupRoute: SetupRoute,
+  ApiCoachRoute: ApiCoachRoute,
+  ApiEvaluateRoute: ApiEvaluateRoute,
+  ApiInterviewRoute: ApiInterviewRoute,
+  ApiReportRoute: ApiReportRoute,
+  ApiResumeRoute: ApiResumeRoute,
+  ReportReportIdRoute: ReportReportIdRoute,
+  ReportIndexRoute: ReportIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

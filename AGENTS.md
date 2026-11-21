@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## TalentLens architecture
+
+- AI calls live only in server routes under `src/routes/api/*` using helpers in `src/lib/ai/*.server.ts`; the browser calls them via `src/lib/api.ts`. Why: keeps the AI key and prompts server-side.
+- Request/response contracts are Zod schemas in `src/lib/interview/schemas.ts`, validated on both server and client before rendering. Why: model output can be malformed.
+- Numeric scores (answer overall, session score, readiness) are computed in `src/lib/interview/scoring.ts`, never by the model. Why: deterministic, testable scoring.
+- No database or login: active interview is React state, reports and coach chat go to localStorage via `src/lib/storage.ts`. Why: privacy requirement of the product.
