@@ -59,7 +59,7 @@ function extractJson(text: string | undefined): unknown {
 }
 
 /** Convert API errors into user-friendly messages. */
-export function toAiError(error: unknown): AiError {
+/*export function toAiError(error: unknown): AiError {
   if (error instanceof AiError) return error;
   const status = APICallError.isInstance(error) ? error.statusCode : undefined;
 
@@ -81,6 +81,44 @@ export function toAiError(error: unknown): AiError {
   console.error("[ai] request failed", error);
 
   return new AiError("The AI service is having trouble right now. Please try again.", 502);
+}
+*/
+
+export function toAiError(error: unknown): AiError {
+  // TEMPORARY DEBUGGING: print the actual upstream error in Vercel logs
+  console.error("[OpenAI API ERROR - FULL DETAILS]", error);
+
+  if (error instanceof AiError) return error;
+
+  const status = APICallError.isInstance(error)
+    ? error.statusCode
+    : undefined;
+
+  if (status === 429) {
+    return new AiError(
+      "OpenAI rate limit reached. Check your API limits and billing.",
+      429,
+    );
+  }
+
+  if (status === 401 || status === 403) {
+    return new AiError(
+      "OpenAI authentication failed. Check OPENAI_API_KEY.",
+      503,
+    );
+  }
+
+  if (status === 402) {
+    return new AiError(
+      "OpenAI API billing or credits issue. Check your API billing.",
+      402,
+    );
+  }
+
+  return new AiError(
+    "The AI service is having trouble right now. Check Vercel logs for the actual error.",
+    502,
+  );
 }
 
 /** Generate a structured JSON answer and validate it against the schema. */
