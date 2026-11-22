@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { streamText } from "ai";
 import { z } from "zod";
 
 import {
@@ -34,19 +34,31 @@ export const Route = createFileRoute("/api/coach")({
       POST: async ({ request }) => {
         try {
           const body = await readBody(request, bodySchema);
-          const messages = body.messages.slice(-40) as unknown as UIMessage[];
+          const messages = body.messages
+            .slice(-40)
+            .filter((message) => message.role === "user" || message.role === "assistant")
+            .map((message) => ({
+              role: message.role as "user" | "assistant",
+              content: (message.parts ?? [])
+                .filter((part: any) => part.type === "text" && typeof part.text === "string")
+                .map((part: any) => part.text)
+                .join("\n"),
+            }))
+            .filter((message) => message.content.trim().length > 0);
 
           const gateway = createGateway();
 
           const result = streamText({
             model: gateway.model,
             instructions: COACH_INSTRUCTIONS,
-            messages: await convertToModelMessages(messages),
+            messages,
             abortSignal: request.signal,
           });
 
           return result.toUIMessageStreamResponse({
-            originalMessages: messages,
+            originalMessages: body.messages.filter(
+              (message) => message.role === "user" || message.role === "assistant",
+            ),
             onError: (error) => toAiError(error).message,
           });
         } catch (error) {
