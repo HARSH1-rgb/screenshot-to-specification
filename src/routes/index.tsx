@@ -47,7 +47,7 @@ function Home() {
           <div>
             <p className="eyebrow mb-4">AI interview preparation</p>
             <h1 className="text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-[3.6rem]">
-              Practise the interview <span className="text-primary">before</span> the interview.
+              Practice the interview <span className="text-primary">before</span> the interview.
             </h1>
             <p className="mt-6 max-w-xl text-lg text-muted-foreground">
               TalentLens runs realistic mock interviews that adapt to how you answer, scores each response, and turns your
@@ -128,7 +128,7 @@ function Home() {
           </div>
           <Button asChild size="lg" variant="highlight">
             <Link to="/setup">
-              Start practising <ArrowRight />
+              Start practicing <ArrowRight />
             </Link>
           </Button>
         </div>
