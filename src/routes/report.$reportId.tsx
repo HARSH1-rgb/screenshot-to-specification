@@ -79,7 +79,7 @@ function ReportPage() {
 
       <section className="mt-6 grid gap-6 md:grid-cols-2">
         <div className="surface-card p-6">
-          <PointList title="Strengths" items={report.strengths} tone="good" empty="Keep practising to build clear strengths." />
+          <PointList title="Strengths" items={report.strengths} tone="good" empty="Keep practicing to build clear strengths." />
         </div>
         <div className="surface-card p-6">
           <PointList title="Weaknesses" items={report.weaknesses} tone="bad" empty="No recurring weaknesses found." />
@@ -151,7 +151,7 @@ function ReportPage() {
       <div className="mt-12 flex flex-wrap gap-3">
         <Button asChild size="lg">
           <Link to="/interview" search={config}>
-            <RotateCcw /> Practise again
+            <RotateCcw /> Practice again
           </Link>
         </Button>
         <Button asChild size="lg" variant="outline">
